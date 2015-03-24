@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cloudui">
+    <title>cloudui</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+</head>
+<!-- <body bgcolor="#3399FF" background="http://chef.vast.com/logo_4_1.png"> -->
+<body link="#808080" vlink="#808080" alink="#808080">
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+<div class="content-wrapper">
+        <div class="content">
+<center>
+        <form id="login_form" method="post" action="/login/">
+            {% csrf_token %}
+	<table cellpadding="5">
+            <tr><td>Username: </td><td><input type="text" name="username" value="" size="50" /></td></tr>
+            <tr><td>Password: </td><td><input type="password" name="password" value="" size="50" /></td></tr>
+            <tr><td><input type="submit" value="submit" /></td><td></td></tr>
+	</table>
+        </form>
+</center>
+</div>
+</div>
+    </body>
+</html>

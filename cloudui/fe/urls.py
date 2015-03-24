@@ -1,0 +1,30 @@
+from django.conf.urls import patterns, url
+from rest_framework import routers, serializers, viewsets
+from fe import views
+
+urlpatterns = patterns('',
+    url(r'^$', views.index, name='index'),
+    url(r'^login/$', views.user_login, name='login'),
+    url(r'^create/$', views.create, name='create'),
+    url(r'^hostnames/$', views.hostnames, name='hostnames'),
+    url(r'^cluster/(?P<ckey>\S+)/$', views.cluster_view, name='cluster_view'),
+    url(r'^delete/(?P<ckey>\S+)/$', views.delete, name='delete'),
+    url(r'^redeploy/(?P<ckey>\S+)/$', views.redeploy, name='redeploy'),
+    url(r'^createstatus/(?P<xid>\d+)/$', views.createstatus, name='createstatus'),
+    url(r'^deletestatus/(?P<xid>\d+)/$', views.deletestatus, name='deletestatus'),
+    url(r'^redeploystatus/(?P<xid>\d+)/$', views.redeploystatus, name='redeploystatus'),
+    url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^apikeys/$', views.apikeys, name='apikeys'),
+    url(r'^databases/$', views.databases, name='databases'),
+    url(r'^alerts/$', views.alerts, name='alerts'),
+    url(r'^api/hosts$', views.hosts_api, name='hosts_api'),
+    url(r'^api/hosts/(?P<pk>[0-9]+)/$', views.hosts_api_details, name='hosts_api_details'),
+    url(r'^api/hostdetails/(?P<name>\S+)/$', views.hosts_api_byname, name='hosts_api_byname'),
+    url(r'^api/clustermembers/(?P<ckey>\S+)/$', views.cluster_members, name='cluster_members'),
+    url(r'^api/lbs$', views.lbs_api, name='lbs_api'),
+    url(r'^api/lbs/(?P<pk>[0-9]+)/$', views.lbs_api_details, name='lbs_api_details'),
+    url(r'^api/ips$', views.ips_api, name='ips_api'),
+    url(r'^api/ips/(?P<pk>[0-9]+)/$', views.ips_api_details, name='ips_api_details'),
+    url(r'^api/hostnames$', views.hostnames_api, name='hostnames_api'),
+    url(r'^api/hostnames/(?P<pk>[0-9]+)/$', views.hostnames_api_details, name='hostnames_api_details'),
+)

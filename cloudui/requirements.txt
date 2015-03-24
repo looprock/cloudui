@@ -1,0 +1,11 @@
+django
+django-generate-scaffold==0.0.5a0
+djangorestframework==2.3.12
+ecdsa==0.10
+ipython==1.2.0
+pycrypto==2.6.1
+wsgiref==0.1.2
+psycopg2
+gunicorn
+python-ldap
+django-auth-ldap

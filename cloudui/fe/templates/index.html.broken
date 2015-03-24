@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta http-equiv="refresh" content="30">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cloudui">
+    <title>cloudui</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+</head>
+<!-- <body bgcolor="#3399FF" background="http://chef.vast.com/logo_4_1.png"> -->
+<body bgcolor="#3399FF">
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="/">Cloudui</a>
+
+        <ul>
+            <li><a href="/create/">Create Cluster</a></li>
+            <li><a href="/apikeys/">API Keys</a></li>
+            <li><a href="/databases/">Databases</a></li>
+	    <li><a href="/alerts/">Alerts</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content-wrapper">
+	<div class="content">
+<center>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+<table border=1>
+<tr><td><center>hostname</center></td><td><center>creation_date</center></td><td><center>cloudstack_id</center></td><td><center>LB hostname</center></td><td>&nbsp;</td></tr>
+{% for host in x %}
+	<tr><td>{{host.hostname}}</td><td>{{host.creation_date}}</td><td>{{host.cloudstack_id}}</td>
+	{% for hostname in h %}
+		{% if hostname.cluster_key == host.cluster_key %}
+			{% res = hostname.hostname %}
+	{% endfor %}
+	{% if res %}
+		{% #<td>{{res}}.cs.oak.vast.com</td> %}
+	{% else %}
+		<td></td>
+	{% endif %}
+	<td></td>
+	<td><a href="/cluster/{{host.cluster_key}}/">cluster info</a></td></tr>
+{% endfor %}
+</table>
+</center>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cloudui">
+    <title>cloudui</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+</head>
+<!-- <body bgcolor="#3399FF" background="http://chef.vast.com/logo_4_1.png"> -->
+<body link="#808080" vlink="#808080" alink="#808080">
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="/">Cloudui</a>
+
+        <ul>
+            <li><a href="/create/">Create Cluster</a></li>
+            <li><a href="/apikeys/">API Keys</a></li>
+            <li><a href="/databases/">Databases</a></li>
+	    <li><a href="/alerts/">Alerts</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head">Cluster: {{ckey}}</h1>
+    </div>
+</div>
+
+<div class="content-wrapper">
+        <div class="content">
+<center>
+{% if x.0 %}
+	<h1>Hosts</h1>
+	<table border=1 cellpadding="5">
+	<tr><td>hostname</td><td>creation_date</td><td>product</td><td>release</td><td>environment</td><td>tags</td></tr>
+	{% for host in x %}
+		<tr><td>{{host.hostname}}</td><td>{{host.creation_date}}</td><td>{{host.product}}</td><td>{{host.release}}</td><td>{{host.environment}}</td><td>{{host.tags}}</td></tr>
+	{% endfor %}
+	</table>
+	<hr>
+{% endif %}
+{% if h.0 %}
+        <h1>Load-balancer</h1>
+        <table border=1 cellpadding="5">
+        <tr><td>hostname</td><td>creation_date</td><td>ipaddr</td><td>tags</td></tr>
+	{% for hostname in h %}
+        	<tr><td>{{hostname.hostname}}.cs.oak.vast.com</td><td>{{hostname.creation_date}}</td><td>{{hostname.ipaddr}}</td><td>{{hostname.tags}}</td></tr>
+        {% endfor %}
+        </table>
+        <hr>
+{% endif %}
+{% if owner == h.0.owner %}
+<a href="/delete/{{ckey}}/">Delete Cluster</a> | 
+{% endif %}
+<a href="/redeploy/{{ckey}}/">Redeploy to cluster</a>
+</center>
+</div>
+</div>
+</body>
+</html>

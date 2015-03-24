@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta http-equiv="refresh" content="30">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cloudui">
+    <title>cloudui</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+</head>
+<!-- <body bgcolor="#3399FF" background="http://chef.vast.com/logo_4_1.png"> -->
+<body link="#808080" vlink="#808080" alink="#808080">
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="/">Cloudui</a>
+
+        <ul>
+            <li><a href="/create/">Create Cluster</a></li>
+            <li><a href="/apikeys/">API Keys</a></li>
+            <li><a href="/databases/">Databases</a></li>
+	    <li><a href="/alerts/">Alerts</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content-wrapper">
+	<div class="content">
+<center>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+<h3>Your clusters</h3>
+<table border=1 cellpadding="5">
+<tr><td><center>cluster hostname</center></td><td><center>creation_date</center></td><td><center>cluster_key</center></td><td>&nbsp;</td></tr>
+{% for host in h %}
+	<tr><td>{{host.hostname}}.cs.oak.vast.com</td><td>{{host.creation_date}}</td><td>{{host.cluster_key}}</td><td><a href="/cluster/{{host.cluster_key}}/">cluster info</a></td></tr>
+{% endfor %}
+</table>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+<h3>Other clusters</h3>
+<table border=1 cellpadding="5">
+<tr><td><center>cluster hostname</center></td><td><center>creation_date</center></td><td><center>cluster_key</center></td><td><center>owner</center><td>&nbsp;</td></tr>
+{% for host in a %}
+	{% if owner != host.owner %}
+        	<tr><td>{{host.hostname}}.cs.oak.vast.com</td><td>{{host.creation_date}}</td><td>{{host.cluster_key}}</td><td>{{host.owner}}</td><td><a href="/cluster/{{host.cluster_key}}/">cluster info</a></td></tr>
+	{% endif %}
+{% endfor %}
+</table>
+</center>
+	</div>
+</div>
+
+</body>
+</html>
