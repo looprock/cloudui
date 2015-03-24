@@ -21,7 +21,7 @@ from time import time
 from time import strftime
 import re
 
-rundeck_endpoint = 'http://rundeck.vast.com:4440'
+rundeck_endpoint = 'http://rundeck.company.com:4440'
 rundeck_auth = 'xxxx'
 
 # Create your views here.
