@@ -70,22 +70,40 @@ func main() {
         }
         fmt.Printf("%s\n", indented)
     } else {
+        // map for entries we've seen
+        seen := map[string]bool {}
         for i := range jsonData {
             if *searchstring != "unset" {
                 var realstring string = ".*" +  *searchstring + ".*"
                 r, _ := regexp.Compile(realstring)
                 if r.MatchString(jsonData[i].Hostname) {
                     if *cluster {
-                        fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
+                        var hostentry string = jsonData[i].Hostname + " - " + jsonData[i].ClusterKey + "\n"
+                        if ! seen[hostentry] {
+                            fmt.Printf(hostentry)
+                            seen[hostentry] = true
+                        }
                     } else {
-                        fmt.Printf("%s\n", jsonData[i].Hostname)
+                        var hostentry string = jsonData[i].Hostname + "\n"
+                        if ! seen[hostentry] {
+                            fmt.Printf(hostentry)
+                            seen[hostentry] = true
+                        }
                     }
                 }
                 if r.MatchString(jsonData[i].ClusterKey)  {
                     if *cluster {
-                        fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
+                        var hostentry string = jsonData[i].Hostname + " - " + jsonData[i].ClusterKey + "\n"
+                        if ! seen[hostentry] {
+                            fmt.Printf(hostentry)
+                            seen[hostentry] = true
+                        }
                     } else {
-                        fmt.Printf("%s\n", jsonData[i].Hostname)
+                        var hostentry string = jsonData[i].Hostname + "\n"
+                        if ! seen[hostentry] {
+                            fmt.Printf(hostentry)
+                            seen[hostentry] = true
+                        }
                     }
                 }
             } else{ 
