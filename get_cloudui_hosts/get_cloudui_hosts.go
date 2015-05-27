@@ -8,6 +8,7 @@ import (
     "crypto/tls"
     "encoding/json"
     "flag"
+    "regexp"
     )
 
 func main() {
@@ -28,6 +29,7 @@ func main() {
     server := flag.String("server", "https://cloudui.vast.com", "Cloudui hosts api url")
     hostname := flag.String("h", "unset", "hostname to look up")
     cluster := flag.Bool("c", false, "Print cluster membership?")
+    searchstring := flag.String("s", "unset", "search string")
     flag.Parse()
 
     var serverstring string
@@ -69,10 +71,29 @@ func main() {
         fmt.Printf("%s\n", indented)
     } else {
         for i := range jsonData {
-            if *cluster {
-                fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
-            } else {
-                fmt.Printf("%s\n", jsonData[i].Hostname)
+            if *searchstring != "unset" {
+                var realstring string = ".*" +  *searchstring + ".*"
+                r, _ := regexp.Compile(realstring)
+                if r.MatchString(jsonData[i].Hostname) {
+                    if *cluster {
+                        fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
+                    } else {
+                        fmt.Printf("%s\n", jsonData[i].Hostname)
+                    }
+                }
+                if r.MatchString(jsonData[i].ClusterKey)  {
+                    if *cluster {
+                        fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
+                    } else {
+                        fmt.Printf("%s\n", jsonData[i].Hostname)
+                    }
+                }
+            } else{ 
+                if *cluster {
+                    fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
+                } else {
+                    fmt.Printf("%s\n", jsonData[i].Hostname)
+                }
             }
         }
     }
