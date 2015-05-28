@@ -11,6 +11,10 @@ import (
     "regexp"
     )
 
+func lineprint(line string) {
+    fmt.Println(line)
+}
+
 func main() {
     // from: http://mervine.net/json2struct
     type Cloudui_Hosts struct {
@@ -73,45 +77,29 @@ func main() {
         // map for entries we've seen
         seen := map[string]bool {}
         for i := range jsonData {
+            var Hostentry string
+            if *cluster {
+                Hostentry = jsonData[i].Hostname + " - " + jsonData[i].ClusterKey + "\n"
+            } else {
+                Hostentry = jsonData[i].Hostname + "\n"
+            }
             if *searchstring != "unset" {
                 var realstring string = ".*" +  *searchstring + ".*"
                 r, _ := regexp.Compile(realstring)
                 if r.MatchString(jsonData[i].Hostname) {
-                    if *cluster {
-                        var hostentry string = jsonData[i].Hostname + " - " + jsonData[i].ClusterKey + "\n"
-                        if ! seen[hostentry] {
-                            fmt.Printf(hostentry)
-                            seen[hostentry] = true
-                        }
-                    } else {
-                        var hostentry string = jsonData[i].Hostname + "\n"
-                        if ! seen[hostentry] {
-                            fmt.Printf(hostentry)
-                            seen[hostentry] = true
-                        }
+                    if ! seen[Hostentry] {
+                        fmt.Printf(Hostentry)
+                        seen[Hostentry] = true
                     }
                 }
                 if r.MatchString(jsonData[i].ClusterKey)  {
-                    if *cluster {
-                        var hostentry string = jsonData[i].Hostname + " - " + jsonData[i].ClusterKey + "\n"
-                        if ! seen[hostentry] {
-                            fmt.Printf(hostentry)
-                            seen[hostentry] = true
-                        }
-                    } else {
-                        var hostentry string = jsonData[i].Hostname + "\n"
-                        if ! seen[hostentry] {
-                            fmt.Printf(hostentry)
-                            seen[hostentry] = true
-                        }
+                    if ! seen[Hostentry] {
+                        fmt.Printf(Hostentry)
+                        seen[Hostentry] = true
                     }
                 }
             } else{ 
-                if *cluster {
-                    fmt.Printf("%s - %s\n", jsonData[i].Hostname, jsonData[i].ClusterKey)
-                } else {
-                    fmt.Printf("%s\n", jsonData[i].Hostname)
-                }
+                fmt.Printf(Hostentry)
             }
         }
     }
